@@ -102,4 +102,27 @@ class ListingPipeline extends EventEmitter {
         // filter out nulls with a type guard - result is EnrichedListing[]
         return result.filter((r): r is EnrichedListing => r !== null)
     }
+
+    getStats(): PipelineStats {
+        return {
+            processed: this.processed,
+            agentCacheSize: this.agentCache.size
+        }
+    }
+}
+
+const runPipeline = async (events: string[]): Promise<void> => {
+    const pipeline = new ListingPipeline();
+
+    pipeline.on('processed', (listing: EnrichedListing) => {
+        console.log('Processed', listing.id);
+    });
+
+    try {
+        const results = await pipeline.processBatch(events);
+        console.log(`${results.length} listings processed`);
+    } catch (error) {
+        console.error('Pipeline failed:', error);
+        throw error;
+    }
 }
