@@ -102,5 +102,4 @@ class ListingPipeline extends EventEmitter {
         // filter out nulls with a type guard - result is EnrichedListing[]
         return result.filter((r): r is EnrichedListing => r !== null)
     }
-
 }
