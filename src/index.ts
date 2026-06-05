@@ -41,7 +41,8 @@ const parseListingEvent = (raw: string): Listing | null => {
         }
         return null;
     } catch {
-        return null;    }
+        return null;    
+    }
 }
 
 const fetchAgentFromDb = async (id: string): Promise<Agent | null> => {
