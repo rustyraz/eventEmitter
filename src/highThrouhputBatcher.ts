@@ -143,7 +143,8 @@ export class HighThrouhputBatcher<T> {
 
    private clearTimer(): void {
     if (this.timer !== null) {
-        this.timer = null;
+        //this.timer = null; // This timer is still active in the Node.js event loop!
+        clearTimeout(this.timer)
     }
    }
 
